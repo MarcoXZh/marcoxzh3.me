@@ -1,0 +1,29 @@
+doctype html
+html
+  head
+    title= title
+    include head.pug
+    link(rel='stylesheet', href='/css/contact.css')
+  //- head
+  body
+    // Top menu bar
+    include top-menu.pug
+
+
+    //- Banner
+    div(class='jumbotron jumbotron-fluid banner')
+
+    //- Main paragraph
+    div(class='jumbotron', id='home-main'): div(class='row')
+      div(class='col-sm-1')
+        img(id='warn-icon', src='/img/warn.png')
+      div(class='col-sm-11')
+        h1(class='h3 text-info') Maintainance
+        p(class='lead text-info') Sorry, but my site is under construction.
+    //- div(class='jumbotron border', id='home-main')
+
+
+    // Footer
+    include footer.pug
+  //- body
+//- html

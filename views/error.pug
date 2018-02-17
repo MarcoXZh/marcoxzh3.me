@@ -1,6 +1,24 @@
-extends layout
+doctype html
+html
+  head
+    title= title
+    include head.pug
+    link(rel='stylesheet', href='/css/contact.css')
+  //- head
+  body
+    // Top menu bar
+    include top-menu.pug
 
-block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+
+    //- Main panel
+    h1= message
+    h2= error.status
+    pre #{error.stack}
+
+
+    // Footer
+    include footer.pug
+    script(src='/js/contact.js')
+    script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAoBmTAyQIpETEGo0UROEgafSbsIT6s1kc&callback=showmap')
+  //- body
+//- html

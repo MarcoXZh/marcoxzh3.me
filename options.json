@@ -1,0 +1,8 @@
+{
+    "database": {
+        "engine": "MongoDB",
+        "db": "marcoxzh3db",
+        "user": "marcoxzh3"
+
+    }
+}

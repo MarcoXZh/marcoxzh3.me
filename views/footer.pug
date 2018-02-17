@@ -1,0 +1,62 @@
+//- Footer
+nav(class='navbar navbar-expand-md navbar-dark fixed-bottom', id='footer')
+  div(class='navbar-brand font-weight-light')
+  button(class='navbar-toggler navbar-toggler-left', type='button', data-toggle='collapse',
+         data-target='#navfooter', aria-controls='navfooter',
+         aria-expanded='false', aria-label='Toggle navigation')
+    span(class='navbar-toggler-icon')
+  //- button
+  div(class='collapse navbar-collapse', id='navfooter')
+    div(class='navbar-nav')
+      img(id='secure', src='/img/comodo_secure_seal_100x85_transp.png', title='Trust Logo')
+      span(class='whatever') &nbsp;
+      span(class='text-white')
+        a(class='text-white', href='https://www.positivessl.com/') Positive SSL
+        |  secured by&nbsp;
+        a(class='text-white', href='https://ssl.comodo.com/') Comodo&copy;
+        //- div(id='trustLogo')
+      //- span(class='text-white')
+    //- div(class='navbar-nav')
+    ul(class='navbar-nav ml-auto'): ul(class='list-inline')
+      each footer in footers
+        li(class='list-inline-item')
+          a(class=footer.desc, href=footer.url, title=footer.name)
+      //- each toc in tocs
+      li(class='list-inline-item'): a(class='whatever', href='#')
+      div(class='list-inline-item btn-group dropup')
+        a(class='fas fa-code', href='#', id='dropup',
+          data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+        div(class='dropdown-menu bg-info')
+          each tech in techs
+            a(class='dropdown-item text-light', href=tech.url)
+              if tech.desc.startsWith('fa')
+                span(class=tech.desc)
+              else
+                span: img(class='icon-url', src=tech.desc)
+              span(class='whatever') &nbsp;&nbsp;&nbsp;&nbsp;
+              | #{tech.name}
+        //- div(class='dropdown-menu')
+      //- div(class='btn-group dropup', id='tech-stack')
+    //- ul(class='navbar-nav ml-auto'): ul(class='list-inline')
+  //- div(class='collapse navbar-collapse', id='navfooter')
+//- nav(class='navbar navbar-expand-md fixed-bottom')
+
+
+//- Scripts
+script(src='https://code.jquery.com/jquery-3.3.1.min.js',
+       integrity='sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT',
+       crossorigin='anonymous')
+script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js',
+       integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q',
+       crossorigin='anonymous')
+script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js',
+       integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl',
+       crossorigin='anonymous')
+script(src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular.min.js',
+       integrity='sha384-7N66VCkbpJUVwHKCEz5qEgog94BLAJpgfXvD55ThBuHpdPrffMfva/Kl1WH8Y8FS',
+       crossorigin='anonymous')
+script(src='/js/index.js')
+script(language='JavaScript', type='text/javascript').
+  TrustLogo("https://marcoxzh3.me/img/comodo_secure_seal_100x85_transp.png",
+            "CL1", "none");
+//- script(language='JavaScript', type='text/javascript')

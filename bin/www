@@ -3,64 +3,51 @@
 /**
  * Module dependencies.
  */
+const app = require('../app');
+const debug = require('debug')('marcoxzh3.me:server');
+const http = require('http');
 
-var app = require('../app');
-var debug = require('debug')('marcoxzh3.me:server');
-var http = require('http');
 
-/**
- * Get port from environment and store in Express.
- */
-
-var port = normalizePort(process.env.PORT || '3000');
+// Get port from environment and store in Express.
+const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
-
-/**
- * Create HTTP server.
- */
-
-var server = http.createServer(app);
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-
+// Create HTTP server.
+const server = http.createServer(app);
+// Listen on provided port, on all network interfaces.
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
+
 /**
  * Normalize a port into a number, string, or false.
+ * @param {string}  val       the value for port normalization
+ * @return {integer|string}   the normalized value of the port
  */
-
 function normalizePort(val) {
-  var port = parseInt(val, 10);
-
+  const port = parseInt(val, 10);
   if (isNaN(port)) {
     // named pipe
     return val;
-  }
-
+  } // if (isNaN(port))
   if (port >= 0) {
     // port number
     return port;
-  }
-
+  } // if (port >= 0)
   return false;
-}
+} // function normalizePort(val)
+
 
 /**
  * Event listener for HTTP server "error" event.
+ * @param {error}   error   the error to be handled
  */
-
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
-  }
+  } // if (error.syscall !== 'listen')
 
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+  const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -74,17 +61,73 @@ function onError(error) {
       break;
     default:
       throw error;
-  }
-}
+  } // switch (error.code)
+} // function onError(error)
+
 
 /**
  * Event listener for HTTP server "listening" event.
  */
-
 function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
+  const addr = server.address();
+  const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
   debug('Listening on ' + bind);
-}
+} // function onListening()
+
+
+/**
+ * Enable the HTTPS server if possible
+ */
+const ssl = app.get('ssl');
+if (ssl) {
+  // Setup the HTTPS server
+  const https = require('https');
+  const httpsServer = https.createServer(ssl, app);
+  const securePort = normalizePort(process.env.SECURE_PORT || '443');
+  app.set('secure_port', securePort);
+  httpsServer.listen(securePort);
+
+
+  /**
+   * Event listener for HTTPS server "error" event.
+   * @param {error}   error   the error to be handled
+   */
+  const onSecureError = function(error) {
+    if (error.syscall !== 'listen') {
+      throw error;
+    } // if (error.syscall !== 'listen')
+
+    const bind = typeof securePort === 'string' ? 'Pipe ' + securePort
+                                                : 'Port ' + securePort;
+
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+      case 'EACCES':
+        console.error(bind + ' requires elevated privileges');
+        process.exit(1);
+        break;
+      case 'EADDRINUSE':
+        console.error(bind + ' is already in use');
+        process.exit(1);
+        break;
+      default:
+        throw error;
+    } // switch (error.code)
+  }; // const onSecureError = function(error) { ... });
+
+
+  /**
+   * Event listener for HTTP server "listening" event.
+   */
+  const onSecureListening = function() {
+    const addr = httpsServer.address();
+    const bind = typeof addr === 'string' ? 'pipe ' + addr
+                                          : 'port ' + addr.port;
+    debug('Listening on ' + bind);
+  }; // const onSecureListening = function() { ... });
+
+
+  // Bind HTTPS server event
+  httpsServer.on('error', onSecureError);
+  httpsServer.on('listening', onSecureListening);
+} // if (ssl)

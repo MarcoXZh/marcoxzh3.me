@@ -1,0 +1,68 @@
+doctype html
+html
+  head
+    title= title
+    include head.pug
+    link(rel='stylesheet', href='/css/contact.css')
+  //- head
+  body(data-ng-app='contact_app', data-ng-controller='contact_ctrl')
+    // Top menu bar
+    include top-menu.pug
+
+
+    //- Main panel
+    div(class='container contact'): div(class='row')
+      div(class='col-md-6 form-inline')
+        p(class='col-sm-12 lead') Leave me a message
+
+        input(class='form-control col-sm-5', data-ng-model='name',
+              type='text', placeholder='Name', required)
+        code(class='col-sm-1') *
+        input(class='form-control col-sm-5', data-ng-model='email',
+              type='email', placeholder='Email', required)
+        code(class='col-sm-1') *
+
+        input(class='form-control col-sm-5', data-ng-model='subject',
+              type='text', placeholder='Subject')
+        code(class='col-sm-1')
+        input(class='form-control col-sm-5', data-ng-model='location',
+              id='location', type='text', placeholder='{{location_ph}}')
+        span(class='fa fa-map-marker col-sm-1', title='Locate me')
+
+        textarea(class='form-control col-sm-11', data-ng-model='message',
+                 placeholder='Message', rows='12', required)
+        code(class='col-sm-1') *
+
+        input(class='form-control col-sm-3 btn btn-primary', type='reset',
+              data-ng-click='reset_form()')
+        code(class='col-sm-5')
+        input(class='form-control col-sm-3 btn btn-primary', type='submit',
+              data-ng-click='submit_form()', id='submit',
+              data-toggle='modal')
+      //- div(class='col-md-6 form-inline')
+      div(class='col-md-6')
+        div(class='jumbotron h3 text-center text-info border', id='map')
+      //- div(class='col-md-6')
+    //- div(class='container contact'): div(class='row')
+
+
+    //- Model dialog
+    div(class='modal fade', id='status')
+      div(class='modal-dialog')
+        div(class='modal-content', id='dialog')
+          div(class='modal-header')
+            h5(class='modal-title')= title
+            button(type='button', class='close', data-dismiss='model') &times;
+          //- div(class='modal-header')
+          div(class='modal-body') {{response}}
+        //- div(class='modal-content')
+      //- div(class='modal-dialog')
+    //- div(class='modal fade', id='status'): div(class='modal-dialog')
+
+
+    // Footer
+    include footer.pug
+    script(src='/js/contact.js')
+    script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAoBmTAyQIpETEGo0UROEgafSbsIT6s1kc&callback=initialize')
+  //- body
+//- html
