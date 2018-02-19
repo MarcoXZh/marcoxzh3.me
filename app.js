@@ -93,13 +93,6 @@ try {
     key: encryption.importFileSync(sslKeyPath1, options.password),
     cert: encryption.importFileSync(sslCertPath1, options.password),
   }); // app.set('ssl', { ...});
-  // let txt = fs.readFileSync('keys/COMODORSADomainValidationSecureServerCA.crt')
-  //                       .toString();
-  // // console.log(JSON.stringify(txt, null, 4));
-  // console.log(txt);
-
-
-
 
   console.info('Info: SSL of "' + hostname + '" loaded');
 } catch (err) {

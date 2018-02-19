@@ -7,16 +7,4 @@ $(document).ready(function() {
   li.addClass('active');
   li.siblings().removeClass('active');
 
-
-  return ;
-  // Enable tech stack dropup
-  $('#dropup').click(function() {
-    if($('.dropdown-menu').hasClass('show')) {
-      $('.dropdown-menu').removeClass('show')
-    } else {
-      $('.dropdown-menu').addClass('show')
-    } // if($('#dropdown-menu').hasClass('show'))
-  }); // $('#dropup').click(function() { ... });
-
-
 }); // $(document).ready(function() { ... };
